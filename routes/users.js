@@ -1,15 +1,39 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 const User = require("../model/User")
+// const file = require("/upload")
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    }, 
+    filename: function (req, file, cb) {
+        cb(null, `${file.fieldname}-${Date.now()}${getExt(file.mimetype)}`)
+    }
+});
+
+const getExt = (mimetype) => {
+    switch(mimetype){
+        case "image/png":
+            return '.png';
+        case "image/jpeg":
+            return '.jpg';
+    }
+}
+
+var upload = multer({ storage: storage });
 
 
 router.post("/register", async (req, res) => {
-    console.log(req.body.username);
+
     let Users = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
-    });
+        password: req.body.password,
+        
+    })
 
     try{
         let UserPost = await Users.save((err, user) => {
@@ -19,7 +43,9 @@ router.post("/register", async (req, res) => {
                     status: err
                 })
             }else{
-                res.send("registered")
+                res.send({
+                    status:"registered"
+                })
                 console.log(user)
             }
             console.log("all is good")
@@ -48,6 +74,10 @@ router.post("/login", async(req, res) => {
         }
     })
 })
+
+
+
+
 
 module.exports = router
 

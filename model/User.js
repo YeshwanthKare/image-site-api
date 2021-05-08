@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const express = require("express");
+
 
 
 const UserDB = new Schema({
+    _id: Schema.Types.ObjectId,
     username: {
         type: String,
         required: true,
@@ -19,5 +20,7 @@ const UserDB = new Schema({
     }
 })
 
-const model = mongoose.model("User", UserDB);
-module.exports = model
+const User = mongoose.model("User", UserDB);
+
+
+module.exports = User
