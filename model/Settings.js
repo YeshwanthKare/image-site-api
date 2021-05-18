@@ -1,18 +1,16 @@
 const mongoose = require('mongoose');
-const User = require('../model/User')
+require('../model/User')
 const Schema = mongoose.Schema;
 
 const UserSettings = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+    user_id: {
+        type: String,
     },
     username: {
         type: String
     },
     profileImage: {
-        data: Buffer,
-        contentType: String
+        type: String
     },
     city: {
         type: String,

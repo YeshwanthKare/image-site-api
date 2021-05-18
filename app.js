@@ -10,6 +10,7 @@ const cors = require("cors")
 // const Schema = mongoose.Schema
 
 app.use(express.json());
+app.use(express.static("uploads"))
 
 app.use(cors());
 
@@ -23,7 +24,9 @@ mongoose.connect(process.env.DB, {
 .then(() => {
     console.log("connected to DB")
 })
-
+.catch(err => {
+    console.log(err)
+})
 
 
 app.use("/users", pathRoute )

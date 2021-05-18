@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const User = require('../model/User');
-const Images = require('../model/Images')
+require('../model/User');
+require('../model/Images')
 
 
 const Tags = new Schema({
