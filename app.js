@@ -10,7 +10,7 @@ const cors = require("cors")
 // const Schema = mongoose.Schema
 
 app.use(express.json());
-app.use(express.static("uploads"))
+app.use("/uploads",express.static("uploads"))
 
 app.use(cors());
 

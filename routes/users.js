@@ -130,21 +130,11 @@ router.post("/image", upload.single("image"), async (req, res) => {
     const filePath = req.file.path.replace("\\","/")
     console.log(req.body.tags)
     console.log(filePath)
-    const imageData = fs.readFileSync(filePath);
-    // const post = JSON.parse(imageData)
-    // console.log(post)
-    // const stu = JSON.parse(imageData)
-    // console.log(stu)
-    const encImg = imageData.toString('base64');
-    console.log(encImg)
 
     let Images = new Image({
         user_id: req.body.user_id,
         name: req.body.name,
-        image: {
-            data: imageData,
-            contentType: req.file.mimetype
-        },
+        image: filePath,
         tags: req.body.tags
         
     })
@@ -183,16 +173,16 @@ router.get("/image", async(req, res) => {
 })
 
 
-router.get("/image/:name",  async(req, res) => {
+router.get("/image/:id",  async(req, res) => {
 
-    let postName = req.params.name;
-    console.log(postName)
+    let postId = req.params.id;
+    console.log(postId)
     // res.send(postId)
 
 
 
     try{
-        let images = await Image.findOne({ name: postName }, (err,doc) => {
+        let images = await Image.findOne({ _id: postId }, (err,doc) => {
             if(err){
                 res.send(err)
             }else{
@@ -224,6 +214,20 @@ router.get("/image/:name",  async(req, res) => {
 //         }
 //     })
 // })
+
+router.get("/settings", async(req, res) => {
+    try{
+        let settings = await Settings.find({}, (err, setting) => {
+            if(err){
+                res.status(500).send(err)
+            }else{
+                res.status(200).send(setting)
+            }
+        })
+    }catch(err){
+        res.send(err)
+    }
+})
 
 
 

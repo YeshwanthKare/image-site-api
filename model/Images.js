@@ -6,13 +6,17 @@ const Images = new Schema({
     user_id: {
         type: String
     },
-    name: String,
+    name:{
+        type: String,
+        required: true
+    },
     image: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        required: true
     },
     tags: {
-        type:String
+        type:String,
+        required: true
     }
 })
 
