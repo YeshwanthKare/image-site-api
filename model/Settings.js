@@ -12,6 +12,9 @@ const UserSettings = new Schema({
     profileImage: {
         type: String
     },
+    coverImage:{
+        type: String
+    },
     city: {
         type: String,
         required: true

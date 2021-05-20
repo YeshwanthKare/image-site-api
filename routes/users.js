@@ -82,22 +82,32 @@ router.post("/login", async(req, res) => {
 })
 
 
-router.post('/settings', upload.single('profileImage'), async(req, res) => {
+let uploadField = upload.fields([{ name: 'profileImage', maxCount: 1 }, { name: 'coverImage', maxCount: 1 }]) 
+
+router.post('/settings', uploadField, async(req, res) => {
     console.log(req.body)
-    // console.log(req.file.path)
-    const filePath = req.file.path.replace('\\', "/")
-    console.log(filePath)
+    const avatarFilePath = req.files['profileImage'][0].path.replace("\\", "/")
+    const coverFilePath = req.files['coverImage'][0].path.replace("\\","/")
+
+    // console.log(avatarFilePath.path)
+    // console.log(coverFilePath.path)
 
     
 
     let settings = new Settings({
         user_id: req.body.user_id,
         username: req.body.username,
-        profileImage: filePath,
+        profileImage: avatarFilePath,
+        coverImage: coverFilePath,
         city: req.body.city,
         country: req.body.country
 
     })
+
+    // console.log(settings)
+
+    // res.send(settings)
+
 
 
     try{
