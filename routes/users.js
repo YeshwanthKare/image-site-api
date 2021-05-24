@@ -88,11 +88,7 @@ router.post('/settings', uploadField, async(req, res) => {
     console.log(req.body)
     const avatarFilePath = req.files['profileImage'][0].path.replace("\\", "/")
     const coverFilePath = req.files['coverImage'][0].path.replace("\\","/")
-
-    // console.log(avatarFilePath.path)
-    // console.log(coverFilePath.path)
-
-    
+   
 
     let settings = new Settings({
         user_id: req.body.user_id,
@@ -103,12 +99,6 @@ router.post('/settings', uploadField, async(req, res) => {
         country: req.body.country
 
     })
-
-    // console.log(settings)
-
-    // res.send(settings)
-
-
 
     try{
         let userSettings = await settings.save((err, setting) => {
@@ -130,6 +120,12 @@ router.post('/settings', uploadField, async(req, res) => {
     }
 
     // res.json({settings})
+})
+
+router.patch("/settings/:name", async(req, res) => {
+    const name = req.params.name
+    console.log(name)
+    res.send(name)
 })
 
 
