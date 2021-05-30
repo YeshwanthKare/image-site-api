@@ -11,8 +11,14 @@ const cors = require("cors")
 
 app.use(express.json());
 app.use("/uploads",express.static("uploads"))
+app.use(cors())
 
-app.use(cors());
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   next();
+// });
+
+
 
 // "mongodb://localhost:27017/ImageSite"
 

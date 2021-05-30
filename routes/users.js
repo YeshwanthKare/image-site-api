@@ -62,6 +62,42 @@ router.post("/register", async (req, res) => {
     
 })
 
+router.post("/password/:id", async(req, res) => {
+
+    let userId = req.params.id
+    
+    try{
+        let updatePassword = await User.updateOne( { _id : userId }, { password : req.body.password }, (err, updatedObject) => {
+            if(err) {
+                res.status(500).send(err)
+                console.log(err)
+            }else {
+                
+                res.status(200).send(updatedObject)
+            }
+        })
+    }catch(err) {
+        res.status(400).send(err)
+    }
+})
+
+router.get("/", async(req, res) => {
+    try{
+        let userDetails = await User.find({}, (err, user) => {
+            if(err){
+                res.send(500, {
+                    message: err
+                })
+            }else{
+                res.status(200).send(user)
+            }
+        })
+    }catch(err){
+        res.send(err)
+    }
+    
+})
+
 router.post("/login", async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -168,14 +204,60 @@ router.post("/image", upload.single("image"), async (req, res) => {
     
 })
 
+
+// Delete Image
+
+router.post("/delete", async(req, res, next) => {
+    console.log(req.body)
+    const id = req.body.imageId;
+    console.log(id)
+
+    
+
+    // res.send(id)
+    
+    try {
+        let deleteImage = await Image.deleteOne({ _id: id }, (err, image) => {
+            if(err){
+                res.staus(500,{
+                    message: err
+                })
+                console.log(err)
+            }else{
+                res.status(200, {
+                    message: image
+                })
+                res.redirect("/")
+                console.log("Image successfully deleted")
+            }
+        })
+    }catch(err) {
+        res.send(500, {
+            message: err
+        })
+        console.log(err)
+    }
+})
+
+
 router.get("/image", async(req, res) => {
-    let allImages = await Image.find({}, (err, img) => {
-        if(err){
-            console.log(err)
-        }else{
-            res.send(img)
-        }
-    })
+
+    try{
+        let allImages = await Image.find({}, (err, img) => {
+            if(err){
+                res.send(400,{
+                    status:err
+                })
+                console.log(err)
+            }else{
+                res.send(img)
+            }
+            
+        })
+    }catch(err){
+        res.send(err)
+    }
+    
 })
 
 

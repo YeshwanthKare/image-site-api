@@ -7,13 +7,16 @@ const UserSettings = new Schema({
         type: String,
     },
     username: {
-        type: String
+        type: String,
+        required: true
     },
     profileImage: {
-        type: String
+        type: String,
+        required: true
     },
     coverImage:{
-        type: String
+        type: String,
+        required: true
     },
     city: {
         type: String,
