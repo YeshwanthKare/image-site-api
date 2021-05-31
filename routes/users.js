@@ -81,6 +81,24 @@ router.post("/password/:id", async(req, res) => {
     }
 })
 
+router.post("/register/:id", async(req, res) => {
+    let userId = req.params.id
+
+    try{
+        await User.deleteOne({ _id: userId }, (err, deletedObject) => {
+            if(err){
+                res.status(500).send(err)
+            }else{
+                res.status(200).send(deletedObject)
+                console.log(deletedObject)
+
+            }
+        })
+    }catch(err){
+        res.status(400).send(err)
+    }
+})
+
 router.get("/", async(req, res) => {
     try{
         let userDetails = await User.find({}, (err, user) => {

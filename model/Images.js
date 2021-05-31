@@ -14,10 +14,10 @@ const Images = new Schema({
         type: String,
         required: true
     },
-    tags: {
+    tags: [{
         type:String,
         required: true
-    }
+    }]
 })
 
 const UserImages = mongoose.model("Image", Images)
