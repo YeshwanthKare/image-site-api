@@ -8,7 +8,6 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose;
 const fs = require("fs")
 const path = require("path")
-// const file = require("/upload")
 
 
 const storage = multer.diskStorage({
