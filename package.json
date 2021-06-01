@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yeshwanth",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
