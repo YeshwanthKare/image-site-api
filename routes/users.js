@@ -120,11 +120,13 @@ router.post("/login", async(req, res) => {
     const password = req.body.password;
     User.findOne({email: email, password: password}, (err, user) => {
         if(user){
-            res.send({
-                status:"valid", 
-                token: user.id
-            })
-            console.log(user)
+            if(typeof user.id !== "undefined"){
+                res.send({
+                    status:"valid", 
+                    token: user.id
+                })
+                console.log(user)
+            }
         }else{
             res.send(400,{
                 status:"Not Found"
